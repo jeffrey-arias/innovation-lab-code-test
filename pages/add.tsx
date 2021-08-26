@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         rowGap: "10px"
     },
     buttonGroup: {
-        marginTop: "50px"
+        marginTop: "20px"
     },
     buttonLeft : {
         height: "30px",
@@ -66,7 +66,10 @@ const useStyles = makeStyles({
             transform: 'translateY(2px)',
             boxShadow: '0 2px #666;'
         },
-    }
+    },
+    image: {
+        maxHeight: '150px   ',
+      },
 
 });
 
@@ -93,6 +96,24 @@ export default function AddItem() {
             <DisplayContainer>
                 <Title>Add new Woof</Title>
                 <div className={classes.line}>
+                        <div />
+                        <label for="preview" className={classes.label}>Preview:</label> 
+                        <div />
+                        <div />
+                        <div>
+                            <center>
+                            { url && ( url.toLowerCase().endsWith("png") ||
+                                       url.toLowerCase().endsWith("jpg") ||
+                                       url.toLowerCase().endsWith("gif") ||
+                                       url.toLowerCase().endsWith("jfif")) &&
+                                <img src={url}  className={classes.image}/>
+                            }
+                            { url && url.toLowerCase().endsWith("mp4") &&
+                                <video src={url} className={classes.image} />
+                            }
+                            </center>
+                        </div>
+                        <div />
                         <div />
                         <label for="url" className={classes.label}>URL:</label> 
                         <div />
