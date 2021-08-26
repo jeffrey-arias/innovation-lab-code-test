@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import PetsIcon from '@material-ui/icons/Pets';
 import { MenuItem, Menu }  from '@material-ui/core'
+import AboutModal from './aboutModal';
 
 const useStyles = makeStyles({
     root: {
@@ -26,12 +27,23 @@ export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
+  const [show, setShow] = useState(false);
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleAbout = () => {
+    handleClose();  
+    setShow(true);
+  };
+
+  const handleCloseModal = () => {
+    setShow(false);
   };
 
   const handleNavigate = (event) => {
@@ -81,6 +93,7 @@ export default function NavBar() {
                 <MenuItem onClick={handleNavigate} id="home">Home</MenuItem>
                 <MenuItem onClick={handleNavigate} id="add_item">Add Woof</MenuItem>
                 <MenuItem onClick={handleNavigate} id="display_items">Display All Woofs</MenuItem>
+                <MenuItem onClick={handleAbout} id="about">About...</MenuItem>
             </Menu>
         </div>
           <Typography variant="h6" className={classes.title}>
@@ -88,6 +101,7 @@ export default function NavBar() {
           </Typography>
         </Toolbar>
       </AppBar>
+      <AboutModal show={show} handleClose={handleCloseModal}/>
     </div>
   );
 }
