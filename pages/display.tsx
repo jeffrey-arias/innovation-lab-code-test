@@ -12,7 +12,14 @@ interface IProps {
     isMobileDevice?: boolean;
 }
 
-const WoofContainer = styled.div<IProps>`
+export interface DisplayableDog {
+  url: string;
+  caption: string;
+  type: string;
+  id: string;
+}
+
+export const WoofContainer = styled.div<IProps>`
   display: grid;
   grid-template-columns: auto auto auto auto;
   gap: 20px;
@@ -24,7 +31,7 @@ const WoofContainer = styled.div<IProps>`
   }}
 `;
 
-const WoofContainerItem = styled.div<IProps>`
+export const WoofContainerItem = styled.div<IProps>`
   min-width: calc((100vw - 16px - 70px)/4 );
   background-color: white;
   border: 1px solid black;
@@ -38,23 +45,30 @@ const WoofContainerItem = styled.div<IProps>`
     `
   }}
 `
+type PropTypes = {
+  dogs?: any
+}
 
+type DogStaticProps = {
+  dog: DisplayableDog
+};
 /**
  * This page displays all items that are fetched from the DB.
  * @returns React.Element
+ * @props dogs, contains the dogs to display
  */
-export default function DisplayItemsPage() {
+export default function DisplayItemsPage({dogs}: PropTypes) {
     const { isMobileDevice } = useDetectDevice();
+    const dogItems = dogs && dogs.length > 0 ? dogs : testData;
     return (
         <div>        
             <NavBar />
             <DisplayContainer>
-                <Title>Here are your woofs:</Title>
-                
+                <Title>Here are your woofs:</Title>   
                 <WoofContainer isMobileDevice={isMobileDevice} >
-                    {testData.map (dog=>
-                        <WoofContainerItem isMobileDevice={isMobileDevice}>
-                            <DogItem dog={dog} />
+                    {dogItems.map ((dog: DisplayableDog) =>
+                        <WoofContainerItem isMobileDevice={isMobileDevice} key={dog.id+"wci"}>
+                            <DogItem dog={dog} key={dog.id} />
                         </WoofContainerItem>
                     )}  
                 </WoofContainer>

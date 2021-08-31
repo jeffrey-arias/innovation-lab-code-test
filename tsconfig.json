@@ -16,5 +16,5 @@
     "noImplicitAny": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "models/connection.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "models/connection.js", "models/dog.js", "models/dog .js"]
 }

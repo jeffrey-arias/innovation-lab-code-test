@@ -4,6 +4,11 @@
  */
 import React, {useEffect, useState} from 'react'
 
+/**
+ * This hook determines if the device being used is a desktop or a mobile device.
+ * It also assumes a mobile device if the orientation is in portrait (i.e. device height > width)
+ * @returns
+ */
 export default function useDetectDevice() {
     const [isMobileDevice, setMobileDevice] = useState(false);
 

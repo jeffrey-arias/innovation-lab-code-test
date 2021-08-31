@@ -84,6 +84,13 @@ const useStyles = makeStyles<StyleProps>({
 
 });
 
+/**
+ * 
+ * @returns Page that allows the user to add a new dog item that will be displayed in the display all page.
+ * It has a Preview box that dynamically shows the contents of the entered URL
+ * Import Dogs button fetches a random URL that may contain an image or video file
+ * Add creates a dog item from the entered fields and saves this to the DB
+ */
 export default function AddItem() {
     const [url, setURL] = useState("baby_doge.png");
     const [caption, setCaption] = useState();
@@ -147,8 +154,8 @@ export default function AddItem() {
                         <div /> 
                         <div /> 
                         <div className={classes.buttonGroup}>
-                            <button onClick={handleImport} className={classes.buttonLeft}>Import Dog</button>
-                            <button onClick={handleAdd} className={classes.buttonRight}>Add</button>
+                            <button onClick={handleImport} id="importDogBtn" className={classes.buttonLeft}>Import Dog</button>
+                            <button onClick={handleAdd} id="addDogBtn" className={classes.buttonRight}>Add</button>
                         </div>
                         <div /> 
 

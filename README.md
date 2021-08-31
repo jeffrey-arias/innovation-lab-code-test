@@ -24,6 +24,10 @@ The following links may help you understand the scaffolded structure of the appl
 - [next.js](https://nextjs.org/)
 - [styled-components](https://www.styled-components.com/)
 - [sequelize](https://sequelize.org/v5/manual/getting-started.html)
+- **NEW** [material-ui](https://material-ui.com/)
+- **NEW** [jest](https://jestjs.io/docs/tutorial-react)
+- **NEW** [enzyme](https://enzymejs.github.io/enzyme/) 
+- **NEW** [axios](https://www.npmjs.com/package/axios)
 
 If you are more comfortable with a different set of technologies, please feel free to use them and document how to get started in this README.
 
@@ -43,6 +47,8 @@ Create a basic gallery to display media items.
     - An "Add" button to create the item
     - An "Import dog" button that will optionally populate the URL field with a result from:
       https://random.dog/woof.json
+    - **NEW** A preview box that displays an image or video of the entered URL 
+    - **NEW** A landing page
 - The app should support jpg, gif, png and mp4 gallery items
 - Do not store the actual media item in the app, simply display the media items directly from the URL entered
 - Please include tests, use your judgement on what an appropriate amount of tests looks like

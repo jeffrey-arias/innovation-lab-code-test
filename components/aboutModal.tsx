@@ -26,6 +26,12 @@ const useStyles = makeStyles({
     }
   });
 
+  /**
+   * This shows and hides a dialogue that displays the About page
+   * @param show - shows or hides the dialogue
+   * @param handleClose - callback function that closes the dialogue 
+   * @returns 
+   */
   export default function AboutModal ({show, handleClose}: ModalProps) {
     const classes = useStyles();
 

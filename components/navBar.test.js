@@ -1,23 +1,32 @@
-import React from 'react';
-import {cleanup, fireEvent, render} from '@testing-library/react';
 
-import NavBar from "../navBar";
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import React from 'react';
+import useLayoutEffect from './useEffectTestFix';
+
+import { mount, render } from 'enzyme';
+
+import NavBar from "./navBar";
 import PetsIcon from '@material-ui/icons/Pets';
-import { MenuItem, Menu }  from '@material-ui/core'
+import { MenuItem }  from '@material-ui/core'
 import AboutModal from './aboutModal';
 
-afterEach(cleanup);
-
 describe('Navigation Bar gets rendered', () => {  
-    render(
-        <NavBar />
-    );
-        
-    it('renders Navigation Baar', () => {
-        expect(renderer.find(AppBar));
+    React.useLayoutEffect = React.useEffect;
+
+    const wrapper = mount(<NavBar />);  
+    it('renders the title text', () => {
+    expect(render(<NavBar />).text()).toEqual('Woof App');
+    }); 
+    it('renders icon button', () => {   
+        const items = wrapper.find(PetsIcon);
+        expect(items).toHaveLength(1);
+      });
+    it('renders 4 menu items', () => {   
+        const items = wrapper.find(MenuItem);
+        expect(items).toHaveLength(4);
+      });
+    it('renders about modal', () => {
+        const items = wrapper.find(AboutModal);
+        expect(items).toHaveLength(1);
     })
+
 });

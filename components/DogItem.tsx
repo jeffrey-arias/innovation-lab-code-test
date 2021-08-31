@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from "styled-components";
 import { makeStyles } from '@material-ui/core/styles';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import useDetectDevice from "../hooks/useDetectDevice";
@@ -8,6 +7,7 @@ export interface DisplayableDog {
   url: string;
   caption: string;
   type: string;
+  id: string;
 }
 
 type DogStaticProps = {
@@ -38,12 +38,17 @@ const useStyles = makeStyles<StyleProps>({
   }
 });
 
+/**
+ * A basic entity for the a displyable dog item
+ * @param dog, a displayable dog with { caption, url, id, mediaType } fields
+ * @returns React.Element
+ */
 export default function DogItem( {dog}: DogStaticProps) {
   const { isMobileDevice } = useDetectDevice();
   const classes = useStyles(isMobileDevice);
 
     return (
-        <div>
+        <>
             { dog && dog.type === 'image' &&
                 <img src={dog.url} alt={dog.caption} className={classes.image}/>
             }
@@ -53,6 +58,6 @@ export default function DogItem( {dog}: DogStaticProps) {
             <div className={classes.labelContainer}>
               {dog.caption} { dog && dog.type === 'video' && <VideocamIcon /> }
             </div>
-        </div>
+        </>
     )
 }
