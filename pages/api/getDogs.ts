@@ -1,7 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDogs } from "../../models/dog";
+import db  from "../../models";
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const dogs = await getDogs();
-  res.send(dogs);
+    await db.sequelize.sync();
+    const Dog = db.dogs;
+     
+    console.log("Running findAll API...");
+    try {
+        const dogs = await Dog.findAll()      
+        console.log("API findAll completed: "+dogs);
+        res.json(dogs);
+    } catch (error) {
+        console.error("Error encountered while running findAll: "+error);
+        res.status(500).send("Error encountered: "+error);
+    }
+    console.log("API findAll completed...");
 };

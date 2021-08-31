@@ -1,15 +1,24 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import NavBar from "../components/navBar";
 import { DisplayContainer, Title } from '../styles/GlobalStyles';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import useDetectDevice from '../hooks/useDetectDevice';
+import { getMediaType } from '../components/helper';
+import addDog from "../pages/api/addDog";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const useStyles = makeStyles({
+export interface StyleProps {
+    isMobileDevice: Boolean;
+}
+
+const useStyles = makeStyles<StyleProps>({
     inputText: {
-        width: '100%',
+        width: '98%',
         height: "30px",
         lineHeight: "30px",
         fontSize: "15px",
+        
     },
     label: {
         fontFamily: "Arial",
@@ -20,8 +29,10 @@ const useStyles = makeStyles({
     },
     line : {
         display: "grid",
-        gridTemplateColumns: "35% 30% 35%",
-        rowGap: "10px"
+        rowGap: "10px",
+        gridTemplateColumns: isMobileDevice => isMobileDevice
+        ? '5% 90% 5%'
+        : "35% 30% 35%",
     },
     buttonGroup: {
         marginTop: "20px"
@@ -74,9 +85,12 @@ const useStyles = makeStyles({
 });
 
 export default function AddItem() {
-    const classes = useStyles();
-    const [url, setURL] = useState();
+    const [url, setURL] = useState("baby_doge.png");
     const [caption, setCaption] = useState();
+    const { isMobileDevice } = useDetectDevice();
+    const classes = useStyles(isMobileDevice);
+
+    const [mediaType, setMediaType] = useState("image");
 
     const handleImport = () => {
         axios.get("https://random.dog/woof.json")
@@ -85,10 +99,16 @@ export default function AddItem() {
         }).catch (error => console.log(error));
     }
     
-
     const handleAdd = () => {
-        // causing a bug here still
-    }
+        if (url && url.length > 3) {
+            alert("New dog added!");
+        } else {
+            alert("The URL field is required!");
+        }    }
+
+    useEffect(() => {
+        setMediaType(getMediaType(url));
+    });
 
     return (
         <div>
@@ -97,25 +117,22 @@ export default function AddItem() {
                 <Title>Add new Woof</Title>
                 <div className={classes.line}>
                         <div />
-                        <label for="preview" className={classes.label}>Preview:</label> 
+                        <label htmlFor="preview" className={classes.label}>Preview:</label> 
                         <div />
                         <div />
                         <div>
                             <center>
-                            { url && ( url.toLowerCase().endsWith("png") ||
-                                       url.toLowerCase().endsWith("jpg") ||
-                                       url.toLowerCase().endsWith("gif") ||
-                                       url.toLowerCase().endsWith("jfif")) &&
+                            { mediaType && mediaType === 'image' &&
                                 <img src={url}  className={classes.image}/>
                             }
-                            { url && url.toLowerCase().endsWith("mp4") &&
+                            { mediaType && mediaType === 'video' &&
                                 <video src={url} className={classes.image} />
                             }
                             </center>
                         </div>
                         <div />
                         <div />
-                        <label for="url" className={classes.label}>URL:</label> 
+                        <label htmlFor="url" className={classes.label}>URL:</label> 
                         <div />
                         <div /> 
                         <input type="text" id="input_url" className={classes.inputText}
@@ -123,7 +140,7 @@ export default function AddItem() {
                             />
                         <div /> 
                         <div />
-                        <label for="caption" className={classes.label}>Caption:</label> 
+                        <label htmlFor="caption" className={classes.label}>Caption:</label> 
                         <div />
                         <div /> 
                         <input type="text" id="input_caption" className={classes.inputText}/>

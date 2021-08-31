@@ -3,9 +3,27 @@ import styled from "styled-components";
 import { GetStaticProps } from "next";
 import useDetectDevice from "../hooks/useDetectDevice";
 import NavBar from "../components/navBar";
-import { MainContainer } from "../styles/GlobalStyles";
 
-const Title = styled.div`
+
+interface IProps {
+  isMobileDevice?: boolean;
+}
+
+export const MainContainer = styled.div<IProps>`
+  height: calc(100vh - 64px - 16px);
+  width: calc(100vw - 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+  ${props => {
+    if (props.isMobileDevice === true ) return `
+      height: calc(100vh - 64px - 16px - 50px);
+    `
+  }}
+`;
+
+const Title = styled.div<IProps>`
   font-size: 5rem;
   color: white;
   text-shadow: -1px 1px 0 #000,
@@ -17,6 +35,12 @@ const Title = styled.div`
   vertical-align: bottom;
   line-height: 150px;
   height: 150px;
+  ${props => {
+    if (props.isMobileDevice === true ) return `
+        font-size: 4rem;
+        display: block;
+    `
+  }}
 `;
 
 type Dog = {
@@ -35,11 +59,20 @@ export default ({ dogs: initialDogs }: StaticProps) => {
   return (
     <>
       <NavBar />
-      <MainContainer>
+      <MainContainer isMobileDevice={isMobileDevice}>
+      { isMobileDevice ? 
         <div>
-          <Title>Hello, Woofs!</Title>
-          <img src="/baby_doge.png" />
+          <Title isMobileDevice={isMobileDevice}>Hello, Woofs!</Title>
+          <center>
+            <img src="/baby_doge.png" />
+          </center>
         </div>
+        :
+        <div>
+          <Title isMobileDevice={isMobileDevice}>Hello, Woofs!</Title>
+          < img src="/baby_doge.png" />
+        </div>
+      } 
       </MainContainer>
       {/* Here are the dogs:
       {dogs.map((dog) => (
@@ -51,10 +84,10 @@ export default ({ dogs: initialDogs }: StaticProps) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-  return {
-    props: {
-      dogs: [],
-    },
-  };
-};
+// export const getStaticProps: GetStaticProps<StaticProps> = async () => {
+//   return {
+//     props: {
+//       dogs: [],
+//     },
+//   };
+// };

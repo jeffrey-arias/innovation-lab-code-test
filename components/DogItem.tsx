@@ -1,16 +1,28 @@
 import React from 'react'
 import styled from "styled-components";
 import { makeStyles } from '@material-ui/core/styles';
-import { DisplayableDog } from '../models/dog';
 import VideocamIcon from '@material-ui/icons/Videocam';
+import useDetectDevice from "../hooks/useDetectDevice";
+
+export interface DisplayableDog {
+  url: string;
+  caption: string;
+  type: string;
+}
 
 type DogStaticProps = {
   dog: DisplayableDog
 };
 
-const useStyles = makeStyles({
+export interface StyleProps {
+  isMobileDevice: Boolean;
+}
+
+const useStyles = makeStyles<StyleProps>({
   image: {
-    maxWidth: 'calc((100vw - 16px - 70px)/4 )',
+    maxWidth: isMobileDevice => isMobileDevice
+      ? 'calc(100vw - 16px - 20px)'
+      : 'calc((100vw - 16px - 70px)/4 )',
   },
   labelContainer: {
     display: 'flex',
@@ -26,17 +38,9 @@ const useStyles = makeStyles({
   }
 });
 
-
-const Label = styled.div`
-  font-size: 1rem;
-  font-weight: bold;
-  color: black;
-  font-family: Arial;
-  text-align: center;
-`;
-
 export default function DogItem( {dog}: DogStaticProps) {
-    const classes = useStyles();
+  const { isMobileDevice } = useDetectDevice();
+  const classes = useStyles(isMobileDevice);
 
     return (
         <div>
