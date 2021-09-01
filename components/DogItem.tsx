@@ -6,7 +6,7 @@ import useDetectDevice from "../hooks/useDetectDevice";
 export interface DisplayableDog {
   url: string;
   caption: string;
-  type: string;
+  mediaType: string;
   id: string;
 }
 
@@ -49,14 +49,14 @@ export default function DogItem( {dog}: DogStaticProps) {
 
     return (
         <>
-            { dog && dog.type === 'image' &&
+            { dog && dog.mediaType === 'image' &&
                 <img src={dog.url} alt={dog.caption} className={classes.image}/>
             }
-            { dog && dog.type === 'video' &&
+            { dog && dog.mediaType === 'video' &&
                 <video src={dog.url} className={classes.image} />
             }
             <div className={classes.labelContainer}>
-              {dog.caption} { dog && dog.type === 'video' && <VideocamIcon /> }
+              {dog.caption} { dog && dog.mediaType === 'video' && <VideocamIcon /> }
             </div>
         </>
     )

@@ -22,17 +22,17 @@ describe('add page gets rendered without errors', () => {
       });
 });
 
-describe('renders Styled Components wrappers correcrtly', () => {  
-  const wrapper = mount(<DisplayItemsPage dogs={testData}/>);    
-  it('renders StyledComponent DisplayContainer wrapper', () => {
-    expect(wrapper.find(DisplayContainer)).toHaveStyleRule('background-color', 'lightgray');
+// describe('renders Styled Components wrappers correcrtly', () => {  
+//   const wrapper = mount(<DisplayItemsPage dogs={testData}/>);    
+//   it('renders StyledComponent DisplayContainer wrapper', () => {
+//     expect(wrapper.find(DisplayContainer)).toHaveStyleRule('background-color', 'lightgray');
 
-  })
-  it('renders StyledComponent DisplayContainer wrapper', () => {
-    expect(wrapper.find(WoofContainer)).toHaveStyleRule('display', 'grid');
-  })
-  it('renders StyledComponent DisplayContainer wrapper', () => {
-    expect(wrapper.find(WoofContainerItem)).toHaveStyleRule('background-color', 'white');
+//   })
+//   it('renders StyledComponent DisplayContainer wrapper', () => {
+//     expect(wrapper.find(WoofContainer)).toHaveStyleRule('display', 'grid');
+//   })
+//   it('renders StyledComponent DisplayContainer wrapper', () => {
+//     expect(wrapper.find(WoofContainerItem)).toHaveStyleRule('background-color', 'white');
 
-  })
-});
+//   })
+// });
